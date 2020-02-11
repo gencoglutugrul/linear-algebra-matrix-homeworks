@@ -29,6 +29,21 @@ Matrix* create_random_matrix(int column, int row, int max, int min){
     return matrix;
 }
 
+/**
+ * Usage example:
+ * create_user_defined_matrix(5, 2, "Please enter value of %d. column %d row: ");
+ */ 
+Matrix* create_user_defined_matrix(int column, int row, char* value_request_sting){
+    Matrix* matrix=create_matrix(column,row);
+    for(int i=0; i<column; i++){
+        for (int j=0; j<row; j++){
+            printf(value_request_sting,i,j);
+            scanf("%d",&matrix->data[i][j]);
+        }
+    }    
+    return matrix;
+}
+
 int getLetterLength(int num){
     return snprintf(NULL, 0, "%i", num);
 }
