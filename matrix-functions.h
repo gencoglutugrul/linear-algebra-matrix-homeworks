@@ -29,4 +29,12 @@ Matrix* create_random_matrix(int column, int row, int max, int min){
     return matrix;
 }
 
-
+void print_matrix(Matrix* matrix){
+    for(int i=0; i<matrix->column_size; i++){
+        printf("|");
+        for(int j=0; j<matrix->row_size; j++){
+            printf(" %d ",matrix->data[i][j]);
+        }
+        printf("|\n");
+    }
+}
