@@ -29,11 +29,47 @@ Matrix* create_random_matrix(int column, int row, int max, int min){
     return matrix;
 }
 
+int getLetterLength(int num){
+    return snprintf(NULL, 0, "%i", num);
+}
+
+int getMaxSizeOfMatrixValue(Matrix* matrix){
+    int max=matrix->data[0][0];
+    int min=matrix->data[0][0];
+    for(int i=0; i<matrix->column_size; i++){
+        for(int j=0; j<matrix->row_size; j++){
+            if(matrix->data[i][j]<min)
+                min=matrix->data[i][j];
+            if(matrix->data[i][j]>max)
+                max=matrix->data[i][j];
+        }
+    }
+    if(min<0){
+        min=-min;
+    }
+    if(min>max)
+        return getLetterLength(-min);
+    else
+        return getLetterLength(max);
+}
+
+char* chrRepeat(char letter, size_t times){
+    if(times==0) return "";
+    char* repeated = malloc(sizeof(char)*times);
+    for(int i=0; i<times; i++){
+        repeated[i]=letter;
+    }
+    return repeated;
+}
+
 void print_matrix(Matrix* matrix){
+    int maxSize=getMaxSizeOfMatrixValue(matrix);
+
     for(int i=0; i<matrix->column_size; i++){
         printf("|");
         for(int j=0; j<matrix->row_size; j++){
-            printf(" %d ",matrix->data[i][j]);
+            int spaceAdjust = maxSize - getLetterLength(matrix->data[i][j]); 
+            printf(" %s%d ",chrRepeat(' ',spaceAdjust),matrix->data[i][j]);
         }
         printf("|\n");
     }
