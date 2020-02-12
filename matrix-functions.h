@@ -87,6 +87,19 @@ char* chrRepeat(char letter, size_t times){
     return repeated;
 }
 
+Matrix* getMainDiagonal(Matrix* matrix){
+    if(matrix->column_size != matrix->row_size) 
+        return NULL;
+
+    Matrix* mainDiagonalVector=create_matrix(matrix->column_size, 1);
+    
+    for(int i=0; i<matrix->column_size; i++)
+        mainDiagonalVector->data[i][0]=matrix->data[i][i];
+
+    return mainDiagonalVector;
+}
+
+
 void print_matrix(Matrix* matrix){
     int maxSize=getMaxSizeOfMatrixValue(matrix);
 
