@@ -15,16 +15,15 @@ Matrix* create_matrix(size_t column, size_t row) {
     matrix->row_size = row;
     matrix->column_size = column;
 
-     int **data = (int **)malloc(column * sizeof(int *) + (column * row * sizeof(int)));
-
+    // source of allocation memory for 2d array: https://stackoverflow.com/a/19472881/5411287
+    int **data = (int **)malloc(column * sizeof(int *) + (column * row * sizeof(int)));
     int *mem = (int *)(data + column);
 
     for(int i = 0; i < column; i++)
-    {
         data[i] = mem + (i * row);
-    }
+    
 
-    matrix->data=a;
+    matrix->data=data;
     return matrix;
 }
 
