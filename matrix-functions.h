@@ -1,19 +1,30 @@
 #include <time.h>
 #include <stdlib.h>
-#define MAX_SIZE_OF_MATRIX 50
+
 
 struct Matrix {
-    int column_size;
-    int row_size;
-    int data[MAX_SIZE_OF_MATRIX][MAX_SIZE_OF_MATRIX];
+    size_t column_size;
+    size_t row_size;
+    int** data;
 };
 
 typedef struct Matrix Matrix;
 
-Matrix* create_matrix(int column, int row) {
+Matrix* create_matrix(size_t column, size_t row) {
     struct Matrix* matrix = malloc(sizeof(Matrix));
     matrix->row_size = row;
     matrix->column_size = column;
+
+     int **data = (int **)malloc(column * sizeof(int *) + (column * row * sizeof(int)));
+
+    int *mem = (int *)(data + column);
+
+    for(int i = 0; i < column; i++)
+    {
+        data[i] = mem + (i * row);
+    }
+
+    matrix->data=a;
     return matrix;
 }
 
