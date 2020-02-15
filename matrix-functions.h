@@ -142,6 +142,15 @@ bool isZeroVector(Matrix* vector){
     return true;
 }
 
+Matrix* getTransposeOfMatrix(Matrix* matrix){
+    Matrix* transposed=create_matrix(matrix->row_size, matrix->column_size);
+    for(int i=0; i<matrix->column_size; i++)
+        for(int j=0; j<matrix->row_size; j++)
+            transposed->data[j][i]=matrix->data[i][j];
+
+    return transposed;
+}
+
 void print_matrix(Matrix* matrix){
     int maxSize=getMaxSizeOfMatrixValue(matrix);
     for(int i=0; i<matrix->column_size; i++){
