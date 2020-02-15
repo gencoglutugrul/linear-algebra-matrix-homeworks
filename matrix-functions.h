@@ -106,24 +106,33 @@ Matrix* getMainDiagonal(Matrix* matrix){
 Matrix* sumOfMatrices(Matrix* A,Matrix* B){
     if(A->column_size != B->column_size || A->row_size != B->row_size)
         return NULL;
-
+    
+    Matrix* sum=create_matrix(A->column_size, A->row_size);
     for (int i=0; i < A->column_size; i++)
         for(int j=0; j < A->row_size; j++)
-            A->data[i][j] += B->data[i][j];
-    return A;
+            sum->data[i][j] = A->data[i][j] + B->data[i][j];
+    return sum;
 }
 
 
-Matrix* differenceOfMatrices(Matrix* A,Matrix* B){
+Matrix* differenceOfMatrices(Matrix* A, Matrix* B){
     if(A->column_size != B->column_size || A->row_size != B->row_size)
         return NULL;
-
+    
+    Matrix* diff=create_matrix(A->column_size, A->row_size);
     for (int i=0; i < A->column_size; i++)
         for(int j=0; j < A->row_size; j++)
-            A->data[i][j] -= B->data[i][j];
-    return A;
+            diff->data[i][j] = A->data[i][j] - B->data[i][j];
+    return diff;
 }
 
+Matrix* scalarProductOfMatrix(int scalar, Matrix* matrix){
+    Matrix* newMatrix=create_matrix(matrix->column_size, matrix->row_size);
+    for(int i=0; i<matrix->column_size; i++)
+        for(int j=0; j<matrix->row_size; j++)
+            newMatrix->data[i][j] = scalar*matrix->data[i][j];
+    return newMatrix;
+}
 void print_matrix(Matrix* matrix){
     int maxSize=getMaxSizeOfMatrixValue(matrix);
     for(int i=0; i<matrix->column_size; i++){
