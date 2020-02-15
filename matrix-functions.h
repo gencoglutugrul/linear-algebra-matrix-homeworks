@@ -99,6 +99,15 @@ Matrix* getMainDiagonal(Matrix* matrix){
     return mainDiagonalVector;
 }
 
+Matrix* sumOfMatrices(Matrix* A,Matrix* B){
+    if(A->column_size != B->column_size || A->row_size != B->row_size)
+        return NULL;
+
+    for (int i=0; i < A->column_size; i++)
+        for(int j=0; j < A->row_size; j++)
+            A->data[i][j] += B->data[i][j];
+    return A;
+}
 
 void print_matrix(Matrix* matrix){
     int maxSize=getMaxSizeOfMatrixValue(matrix);
