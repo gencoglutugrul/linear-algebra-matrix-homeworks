@@ -1,6 +1,6 @@
 #include <time.h>
 #include <stdlib.h>
-
+#include <stdbool.h>
 
 struct Matrix {
     size_t column_size;
@@ -133,6 +133,15 @@ Matrix* scalarProductOfMatrix(int scalar, Matrix* matrix){
             newMatrix->data[i][j] = scalar*matrix->data[i][j];
     return newMatrix;
 }
+
+bool isZeroVector(Matrix* vector){
+    for(int i=0; i<vector->column_size; i++)
+        if(vector->data[i][0] != 0)
+            return false;
+
+    return true;
+}
+
 void print_matrix(Matrix* matrix){
     int maxSize=getMaxSizeOfMatrixValue(matrix);
     for(int i=0; i<matrix->column_size; i++){
