@@ -15,12 +15,9 @@ Matrix* create_matrix(size_t column, size_t row) {
     matrix->row_size = row;
     matrix->column_size = column;
 
-    // source of allocation memory for 2d array: https://stackoverflow.com/a/19472881/5411287
-    int **data = (int **)malloc(column * sizeof(int *) + (column * row * sizeof(int)));
-    int *mem = (int *)(data + column);
-
+    int **data = (int **)malloc(column * sizeof(int *));
     for(int i = 0; i < column; i++)
-        data[i] = mem + (i * row);
+        data[i] = malloc(sizeof(int)*row);
     
 
     matrix->data=data;
@@ -59,6 +56,7 @@ int getLetterLength(int num){
 }
 
 int getMaxSizeOfMatrixValue(Matrix* matrix){
+    
     int max=matrix->data[0][0];
     int min=matrix->data[0][0];
     for(int i=0; i<matrix->column_size; i++){
@@ -69,13 +67,19 @@ int getMaxSizeOfMatrixValue(Matrix* matrix){
                 max=matrix->data[i][j];
         }
     }
+    
     if(min<0){
-        min=-min;
-    }
-    if(min>max)
-        return getLetterLength(-min);
-    else
+        min=-10*min;
+        
+        if(min>max)
+            return getLetterLength(-min);
+        else
+            return getLetterLength(max);
+    }else {
         return getLetterLength(max);
+    }
+    
+    
 }
 
 char* chrRepeat(char letter, size_t times){
@@ -111,11 +115,10 @@ Matrix* sumOfMatrices(Matrix* A,Matrix* B){
 
 void print_matrix(Matrix* matrix){
     int maxSize=getMaxSizeOfMatrixValue(matrix);
-
     for(int i=0; i<matrix->column_size; i++){
         printf("|");
         for(int j=0; j<matrix->row_size; j++){
-            int spaceAdjust = maxSize - getLetterLength(matrix->data[i][j]); 
+            unsigned int spaceAdjust = maxSize - getLetterLength(matrix->data[i][j]); 
             printf(" %s%d ",chrRepeat(' ',spaceAdjust),matrix->data[i][j]);
         }
         printf("|\n");
